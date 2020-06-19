@@ -1,6 +1,10 @@
 package erica.sudoku;
 
+import com.google.common.base.Preconditions;
 
+/**
+ * Class that implements a grid representing a Sudoku game.
+ */
 public class Grid {
     int[][] grid;
 
@@ -8,55 +12,66 @@ public class Grid {
         grid = new int[9][9];
     }
 
+    /**
+     * Constructs a grid from a 2-dimensional array
+     * @param grid 2-d array
+     */
     public Grid(int[][] grid) {
         this.grid = new int[9][9];
-
-        if(grid.length != 9) {
-            throw new IllegalArgumentException("Invalid Grid");
-        }
-
+        Preconditions.checkArgument(grid.length == 9, "Invalid grid size: %s", grid.length);
         for (int i = 0; i < 9; i++) {
-            if(grid[i].length != 9) {
-                throw new IllegalArgumentException("Invalid Grid");
-            }
+            Preconditions.checkArgument(grid[i].length == 9, "Invalid grid size: %s", grid[i].length);
             for (int j = 0; j < 9; j++) {
                 this.grid[i][j] = grid[i][j];
             }
         }
     }
 
-    private void validate(int i, int j) {
-        if(!(i >= 0 && i < 9 && j >= 0 && j < 9)) {
-            throw new IllegalArgumentException("Invalid Indexes");
-        }
-    }
-
+    /**
+     * Retrieve the content of a cell in the grid
+     * @param i the row
+     * @param j the column
+     * @return the content of the (i,j) cell
+     */
     public int get(int i, int j) {
-        validate(i, j);
+        Preconditions.checkPositionIndex(i, grid.length, "Index out of bounds");
+        Preconditions.checkPositionIndex(j, grid[i].length, "Index out of bounds");
         return grid[i][j];
-
     }
 
+    /**
+     * Enters a number into an empty cell in the grid
+     * @param num number
+     * @param i the row
+     * @param j the column
+     */
     public void set(int num, int i, int j) {
-        validate(i, j);
+        Preconditions.checkPositionIndex(i, grid.length, "Index out of bounds");
+        Preconditions.checkPositionIndex(j, grid[i].length, "Index out of bounds");
         grid[i][j] = num;
     }
 
     public String toString() {
-        String string = "";
+        StringBuilder str = new StringBuilder();
         for(int i = 0; i < 9; i++) {
             for(int j = 0; j < 9; j++) {
                 if(j == 8) {
-                    string = string + grid[i][j];
+                    str.append(grid[i][j]);
                 } else {
-                    string = string + grid[i][j] + "  ";
+                    str.append(grid[i][j]).append("  ");
                 }
             }
-            string = string + "\n";
+            str.append("\n");
         }
-        return string;
+        return str.toString();
     }
 
+    /**
+     * Checks if number could possibly go into given cell in grid
+     * @param num number
+     * @param i the row
+     * @param j the column
+     */
     public boolean valid(int num, int i, int j) {
         if(grid[i][j] != 0) {
             return false;

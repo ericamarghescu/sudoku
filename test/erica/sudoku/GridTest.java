@@ -54,7 +54,7 @@ class GridTest {
     @Test
     void getThrows() {
         Grid grid = new Grid(seed);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> { grid.get(2, 12); });
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> { grid.get(2, 12); });
     }
 
     @Test
@@ -67,7 +67,7 @@ class GridTest {
     @Test
     void setThrows() {
         Grid grid = new Grid();
-        Assertions.assertThrows(IllegalArgumentException.class, () -> { grid.set(5, 2, 12); });
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> { grid.set(5, 2, 12); });
     }
 
     @Test
