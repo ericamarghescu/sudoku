@@ -19,6 +19,19 @@ class GridTest {
             {0,0,0,0,8,0,0,7,9}
     };
 
+    int[][] fullSeed = {
+            {5,3,4,6,7,8,9,1,2},
+            {6,7,2,1,9,5,3,4,8},
+            {1,9,8,3,4,2,5,6,7},
+            {8,5,9,7,6,1,4,2,3},
+            {4,2,6,8,5,3,7,9,1},
+            {7,1,3,9,2,4,8,5,6},
+            {9,6,1,5,3,7,2,8,4},
+            {2,8,7,4,1,9,6,3,5},
+            {3,4,5,2,8,6,1,7,9}
+    };
+
+
     @BeforeEach
     void setUp() {
     }
@@ -91,5 +104,36 @@ class GridTest {
         Assertions.assertFalse(grid.valid(9,1,8));
         Assertions.assertFalse(grid.valid(3,7,1));
         Assertions.assertFalse(grid.valid(6,4,6));
+    }
+
+    @Test
+    void isEmpty() {
+        Grid grid = new Grid(seed);
+        Assertions.assertTrue(grid.isEmpty(3,3));
+        Assertions.assertFalse(grid.isEmpty(5,0));
+    }
+
+    @Test
+    void setEmpty() {
+        Grid grid = new Grid(seed);
+        Assertions.assertFalse(grid.isEmpty(0,0));
+        grid.setEmpty(0,0);
+        Assertions.assertTrue(grid.isEmpty(0,0));
+    }
+
+    @Test
+    void isFull() {
+        Grid grid = new Grid(seed);
+        Grid fullGrid = new Grid(fullSeed);
+        Assertions.assertFalse(grid.isFull());
+        Assertions.assertTrue(fullGrid.isFull());
+    }
+
+    @Test
+    void isValid() {
+        Grid grid = new Grid(seed);
+        Grid solvedGrid = new Grid(fullSeed);
+        Assertions.assertTrue(grid.isValid());
+        Assertions.assertTrue(solvedGrid.isValid());
     }
 }

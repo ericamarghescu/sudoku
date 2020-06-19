@@ -19,12 +19,16 @@ public class Grid {
     public Grid(int[][] grid) {
         this.grid = new int[9][9];
         Preconditions.checkArgument(grid.length == 9, "Invalid grid size: %s", grid.length);
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < grid.length; i++) {
             Preconditions.checkArgument(grid[i].length == 9, "Invalid grid size: %s", grid[i].length);
-            for (int j = 0; j < 9; j++) {
+            for (int j = 0; j < grid[i].length; j++) {
                 this.grid[i][j] = grid[i][j];
             }
         }
+    }
+
+    public Grid(Grid grid) {
+        this(grid.grid);
     }
 
     /**
@@ -53,8 +57,8 @@ public class Grid {
 
     public String toString() {
         StringBuilder str = new StringBuilder();
-        for(int i = 0; i < 9; i++) {
-            for(int j = 0; j < 9; j++) {
+        for(int i = 0; i < grid.length; i++) {
+            for(int j = 0; j < grid[i].length; j++) {
                 if(j == 8) {
                     str.append(grid[i][j]);
                 } else {
@@ -76,12 +80,12 @@ public class Grid {
         if(grid[i][j] != 0) {
             return false;
         }
-        for(int a = 0; a < 9; a++) {
+        for(int a = 0; a < grid.length; a++) {
             if(num == grid[a][j]) {
                 return false;
             }
         }
-        for(int b = 0; b < 9; b++) {
+        for(int b = 0; b < grid[i].length; b++) {
             if(num == grid[i][b]) {
                 return false;
             }
@@ -92,6 +96,60 @@ public class Grid {
             for(int y = sj; y < sj + 3; y++) {
                 if(num == grid[x][y]) {
                     return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks if cell is empty
+     * @param i the row
+     * @param j the column
+     */
+    public boolean isEmpty(int i, int j) {
+        Preconditions.checkPositionIndex(i, grid.length, "Index out of bounds");
+        Preconditions.checkPositionIndex(j, grid[i].length, "Index out of bounds");
+
+        return grid[i][j] == 0;
+    }
+
+    /**
+     * Clears content of a cell
+     * @param i the row
+     * @param j the column
+     */
+    public void setEmpty(int i, int j) {
+        set(0, i, j);
+    }
+
+    /**
+     * Checks if an entire grid is full
+     */
+    public boolean isFull() {
+        for(int i = 0; i < grid.length ; i++) {
+            for(int j = 0; j < grid[i].length; j++) {
+                if(isEmpty(i,j)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks if solution is valid
+     */
+    public boolean isValid() {
+        for(int i = 0; i < grid.length ; i++) {
+            for(int j = 0; j < grid[i].length; j++) {
+                if(!(isEmpty(i, j))) {
+                    int temp = get(i, j);
+                    setEmpty(i, j);
+                    if(!(valid(temp, i, j))) {
+                        return false;
+                    }
+                    set(temp, i, j);
                 }
             }
         }
