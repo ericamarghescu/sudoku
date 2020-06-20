@@ -136,4 +136,12 @@ class GridTest {
         Assertions.assertTrue(grid.isValid());
         Assertions.assertTrue(solvedGrid.isValid());
     }
+
+    @Test
+    void IsGridEmpty() {
+        Grid grid = new Grid(seed);
+        Grid emptyGrid = new Grid();
+        Assertions.assertTrue(emptyGrid.isEmpty());
+        Assertions.assertFalse(grid.isEmpty());
+    }
 }

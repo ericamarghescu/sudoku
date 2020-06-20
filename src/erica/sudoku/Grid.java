@@ -103,6 +103,20 @@ public class Grid {
     }
 
     /**
+     * Checks if entire grid is empty
+     */
+    public boolean isEmpty() {
+        for(int i = 0; i < grid.length; i++) {
+            for(int j = 0; j < grid[i].length; j++) {
+                if(!isEmpty(i, j)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
      * Checks if cell is empty
      * @param i the row
      * @param j the column
