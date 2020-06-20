@@ -5,6 +5,9 @@ import erica.sudoku.Grid;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This strategy uses recursion and backtracking to randomly fill the cells in search of a solution.
+ */
 public class BacktrackSolver implements Solver {
     private void backtrack(List<Grid> solutions, Grid game) {
         for(int i = 0; i < 9; i++) {

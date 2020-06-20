@@ -1,5 +1,6 @@
 package erica.sudoku.generate;
 
+import com.google.common.base.Preconditions;
 import erica.sudoku.Grid;
 import erica.sudoku.solve.BacktrackSolver;
 import erica.sudoku.solve.Solver;
@@ -7,6 +8,13 @@ import erica.sudoku.solve.Solver;
 import java.util.List;
 
 public class GridGenerator extends BaseGenerator {
+    private double ratio;
+
+    public GridGenerator(double ratio) {
+        Preconditions.checkArgument(ratio <= 1 && ratio >= ((double)17)/81, "Invalid ratio");
+        this.ratio = ratio;
+    }
+
     @Override
     public Grid doGenerate() {
         Generator generator = new SolverFullGridGenerator();
@@ -22,7 +30,7 @@ public class GridGenerator extends BaseGenerator {
             if(!grid.isEmpty(i, j)) {
                 grid.setEmpty(i, j);
                 List<Grid> solutions = solver.solve(grid);
-                if(solutions.size() > 1 && grid.fillRatio() > 0.4) {
+                if(solutions.size() > 1 && grid.fillRatio() < ratio) {
                     grid.set(x, i, j);
                     break;
                 }
