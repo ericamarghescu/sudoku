@@ -26,21 +26,12 @@ public class SolverFullGridGenerator extends BaseGenerator {
     }
 
     public int[] getShuffle() {
-        int[] random = new int[9];
+        int[] random = new int[] {1,2,3,4,5,6,7,8,9};
         for(int i = 0; i < 9; i++) {
-            boolean found = true;
-            while(found) {
-                int num = (int) (Math.random() * 9) + 1;
-                found = false;
-                for (int j = 0; j < i; j++) {
-                    if (random[j] == num) {
-                        found = true;
-                    }
-                }
-                if (!found) {
-                    random[i] = num;
-                }
-            }
+            int temp = random[i];
+            int num = i + (int) (Math.random() * (9-i) );
+            random[i] = random[num];
+            random[num] = temp;
         }
         return random;
     }
