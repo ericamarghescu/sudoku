@@ -55,6 +55,21 @@ public class Grid {
         grid[i][j] = num;
     }
 
+    /**
+     * Returns ratio of filled cells in the grid
+     */
+    public double fillRatio() {
+        double fill = 0;
+        for(int i = 0; i < grid.length; i++) {
+            for(int j = 0; j < grid[i].length; j++) {
+                if(!isEmpty(i, j)) {
+                    fill++;
+                }
+            }
+        }
+        return fill/81;
+    }
+
     public String toString() {
         StringBuilder str = new StringBuilder();
         for(int i = 0; i < grid.length; i++) {

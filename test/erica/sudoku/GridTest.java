@@ -138,10 +138,32 @@ class GridTest {
     }
 
     @Test
-    void IsGridEmpty() {
-        Grid grid = new Grid(seed);
+    void isEmptyWorksOnEmpty() {
         Grid emptyGrid = new Grid();
         Assertions.assertTrue(emptyGrid.isEmpty());
+    }
+
+    @Test
+    void isEmptyWorksOnNotEmpty() {
+        Grid grid = new Grid(seed);
         Assertions.assertFalse(grid.isEmpty());
+    }
+
+    @Test
+    void fillRatioWorksOnEmpty() {
+        Grid emptyGrid = new Grid();
+        Assertions.assertEquals(emptyGrid.fillRatio(), 0);
+    }
+
+    @Test
+    void fillRatioWorksOnFull() {
+        Grid fullGrid = new Grid(fullSeed);
+        Assertions.assertEquals(fullGrid.fillRatio(), 1);
+    }
+
+    @Test
+    void fillRatio() {
+        Grid grid = new Grid(seed);
+        Assertions.assertEquals(grid.fillRatio(), ((double)30)/81);
     }
 }

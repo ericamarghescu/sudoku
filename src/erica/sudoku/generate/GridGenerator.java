@@ -22,7 +22,7 @@ public class GridGenerator extends BaseGenerator {
             if(!grid.isEmpty(i, j)) {
                 grid.setEmpty(i, j);
                 List<Grid> solutions = solver.solve(grid);
-                if(solutions.size() > 1) {
+                if(solutions.size() > 1 && grid.fillRatio() > 0.4) {
                     grid.set(x, i, j);
                     break;
                 }
