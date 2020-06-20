@@ -13,10 +13,13 @@ public class BacktrackSolver implements Solver {
                     for(int x = 1; x <= 9; x++) {
                         if(game.valid(x, i, j)) {
                             game.set(x, i, j);
+                            //System.out.println("i: " + i + ", j: " + j + "\n" + game);
+                            //try { System.in.read(); } catch(Exception e) {}
                             backtrack(solutions, game);
                             game.setEmpty(i, j);
                         }
                     }
+                    //System.out.println("Fail!");
                     return;
                 }
             }
