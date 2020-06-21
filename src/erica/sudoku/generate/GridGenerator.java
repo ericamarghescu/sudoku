@@ -30,9 +30,13 @@ public class GridGenerator extends BaseGenerator {
             if(!grid.isEmpty(i, j)) {
                 grid.setEmpty(i, j);
                 List<Grid> solutions = solver.solve(grid);
-                if(solutions.size() > 1 && grid.fillRatio() < ratio) {
+                if(solutions.size() > 1) {
                     grid.set(x, i, j);
-                    break;
+                    if(grid.fillRatio() > ratio) {
+                        grid = generator.generate();
+                    } else {
+                        break;
+                    }
                 }
             }
         }
