@@ -7,6 +7,9 @@ import erica.sudoku.solve.Solver;
 
 import java.util.List;
 
+/**
+ * Generator of a new game with a single solution based on a given fill ratio
+ */
 public class GridGenerator extends BaseGenerator {
     private double ratio;
 

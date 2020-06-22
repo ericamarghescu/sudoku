@@ -2,6 +2,9 @@ package erica.sudoku.generate;
 
 import erica.sudoku.Grid;
 
+/**
+ * Generator of a fully filled grid
+ */
 public class SolverFullGridGenerator extends BaseGenerator {
 
     private boolean solve(Grid game) {
